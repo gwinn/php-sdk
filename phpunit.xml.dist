@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="phpunit.xsd"
+    bootstrap="./tests/bootstrap.php"
+    colors="true"
+    verbose="true"
+    processIsolation="false"
+    stopOnFailure="false">
+
+    <!-- Dummy values used to provide credentials. No need to change these. -->
+    <php>
+        <server name="ECOMLOGIC_URL" value="https://demo.ecomlogic.com" />
+        <server name="ECOMLOGIC_KEY" value="Bz9SLca32BYgv2R6yQMlDCUSgOPcbXix" />
+        <server name="ECOMLOGIC_USER" value="1" />
+    </php>
+
+    <testsuites>
+        <testsuite name="Ecomlogic">
+            <directory>tests/Ecomlogic/Tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src/Ecomlogic</directory>
+        </whitelist>
+    </filter>
+</phpunit>

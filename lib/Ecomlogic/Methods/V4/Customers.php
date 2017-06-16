@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * PHP version 5.4
+ *
+ * TaskTrait
+ *
+ * @category Ecomlogic
+ * @package  Ecomlogic
+ * @author   Ecomlogic <dev@ecomlogic.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ */
+
+namespace Ecomlogic\Methods\V4;
+
+use Ecomlogic\Methods\V3\Customers as Previous;
+
+/**
+ * PHP version 5.4
+ *
+ * TaskTrait class
+ *
+ * @category Ecomlogic
+ * @package  Ecomlogic
+ * @author   Ecomlogic <dev@ecomlogic.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ */
+trait Customers
+{
+    use Previous;
+
+    /**
+     * Get customers history
+     * @param array $filter
+     * @param null $page
+     * @param null $limit
+     *
+     * @return ApiResponse
+     */
+    public function customersHistory(array $filter = [], $page = null, $limit = null)
+    {
+        $parameters = [];
+
+        if (count($filter)) {
+            $parameters['filter'] = $filter;
+        }
+        if (null !== $page) {
+            $parameters['page'] = (int) $page;
+        }
+        if (null !== $limit) {
+            $parameters['limit'] = (int) $limit;
+        }
+
+        return $this->client->makeRequest(
+            '/customers/history',
+            $this->client::METHOD_GET,
+            $parameters
+        );
+    }
+}

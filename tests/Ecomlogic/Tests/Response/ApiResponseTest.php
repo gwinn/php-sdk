@@ -1,0 +1,272 @@
+<?php
+
+/**
+ * PHP version 5.4
+ *
+ * API client response test class
+ *
+ * @category Ecomlogic
+ * @package  Ecomlogic
+ * @author   Ecomlogic <dev@ecomlogic.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ */
+
+namespace Ecomlogic\Tests\Response;
+
+use Ecomlogic\Test\TestCase;
+use Ecomlogic\Response\ApiResponse;
+
+/**
+ * Class ApiResponseTest
+ *
+ * @category Ecomlogic
+ * @package  Ecomlogic
+ * @author   Ecomlogic <dev@ecomlogic.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ */
+class ApiResponseTest extends TestCase
+{
+    /**
+     * @group unit
+     */
+    public function testSuccessConstruct()
+    {
+        $response = new ApiResponse(200);
+        $this->assertInstanceOf(
+            'Ecomlogic\Response\ApiResponse',
+            $response,
+            'Response object created'
+        );
+
+        $response = new ApiResponse(201, '{ "success": true }');
+        $this->assertInstanceOf(
+            'Ecomlogic\Response\ApiResponse',
+            $response,
+            'Response object created'
+        );
+    }
+
+    /**
+     * @group unit
+     * @expectedException \Ecomlogic\Exception\InvalidJsonException
+     */
+    public function testJsonInvalid()
+    {
+        $response = new ApiResponse(400, '{ "asdf": }');
+    }
+
+    /**
+     * @group unit
+     */
+    public function testStatusCodeGetting()
+    {
+        $response = new ApiResponse(200);
+        $this->assertEquals(
+            200,
+            $response->getStatusCode(),
+            'Response object returns the right status code'
+        );
+
+        $response = new ApiResponse(460, '{ "success": false }');
+        $this->assertEquals(
+            460,
+            $response->getStatusCode(),
+            'Response object returns the right status code'
+        );
+    }
+
+    /**
+     * @group unit
+     */
+    public function testIsSuccessful()
+    {
+        $response = new ApiResponse(200);
+        $this->assertTrue(
+            $response->isSuccessful(),
+            'Request was successful'
+        );
+
+        $response = new ApiResponse(460, '{ "success": false }');
+        $this->assertFalse(
+            $response->isSuccessful(),
+            'Request was failed'
+        );
+    }
+
+    /**
+     * @group unit
+     */
+    public function testMagicCall()
+    {
+        $response = new ApiResponse(201, '{ "success": true }');
+        $this->assertEquals(
+            true,
+            $response->getSuccess(),
+            'Response object returns property value throw magic method'
+        );
+    }
+
+    /**
+     * @group unit
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMagicCallException1()
+    {
+        $response = new ApiResponse(200);
+        $response->getSome();
+    }
+
+    /**
+     * @group unit
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMagicCallException2()
+    {
+        $response = new ApiResponse(201, '{ "success": true }');
+        $response->getSomeSuccess();
+    }
+
+    /**
+     * @group unit
+     */
+    public function testMagicGet()
+    {
+        $response = new ApiResponse(201, '{ "success": true }');
+        $this->assertEquals(
+            true,
+            $response->success,
+            'Response object returns property value throw magic get'
+        );
+    }
+
+    /**
+     * @group unit
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMagicGetException1()
+    {
+        $response = new ApiResponse(200);
+        $response->some;
+    }
+
+    /**
+     * @group unit
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMagicGetException2()
+    {
+        $response = new ApiResponse(201, '{ "success": true }');
+        $response->someSuccess;
+    }
+
+    /**
+     * @group unit
+     */
+    public function testArrayGet()
+    {
+        $response = new ApiResponse(201, '{ "success": true }');
+        $this->assertEquals(
+            true,
+            $response['success'],
+            'Response object returns property value throw magic array get'
+        );
+    }
+
+    /**
+     * @group unit
+     * @expectedException \InvalidArgumentException
+     */
+    public function testArrayGetException1()
+    {
+        $response = new ApiResponse(200);
+        $response['some'];
+    }
+
+    /**
+     * @group unit
+     * @expectedException \InvalidArgumentException
+     */
+    public function testArrayGetException2()
+    {
+        $response = new ApiResponse(201, '{ "success": true }');
+        $response['someSuccess'];
+    }
+
+    /**
+     * @group unit
+     */
+    public function testArrayIsset()
+    {
+        $response = new ApiResponse(201, '{ "success": true }');
+
+        $this->assertTrue(
+            isset($response['success']),
+            'Response object returns property existing'
+        );
+
+        $this->assertFalse(
+            isset($response['suess']),
+            'Response object returns property existing'
+        );
+    }
+
+    /**
+     * @group unit
+     * @expectedException \BadMethodCallException
+     */
+    public function testArraySetException1()
+    {
+        $response = new ApiResponse(201, '{ "success": true }');
+        $response['success'] = 'a';
+    }
+
+    /**
+     * @group unit
+     * @expectedException \BadMethodCallException
+     */
+    public function testArraySetException2()
+    {
+        $response = new ApiResponse(201, '{ "success": true }');
+        $response['sssssssuccess'] = 'a';
+    }
+
+    /**
+     * @group unit
+     * @expectedException \BadMethodCallException
+     */
+    public function testArrayUnsetException1()
+    {
+        $response = new ApiResponse(201, '{ "success": true }');
+        unset($response['success']);
+    }
+
+    /**
+     * @group unit
+     * @expectedException \BadMethodCallException
+     */
+    public function testArrayUnsetException2()
+    {
+        $response = new ApiResponse(201, '{ "success": true }');
+        unset($response['sssssssuccess']);
+    }
+
+    /**
+     * @group unit
+     */
+    public function testMagicIsset()
+    {
+        $response = new ApiResponse(201, '{ "success": true }');
+
+        $this->assertTrue(
+            isset($response->success),
+            'Response object returns property existing'
+        );
+
+        $this->assertFalse(
+            isset($response->suess),
+            'Response object returns property existing'
+        );
+    }
+}
