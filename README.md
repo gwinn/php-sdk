@@ -27,12 +27,13 @@ require 'path/to/vendor/autoload.php';
 ```php
 $client = new \Ecomlogic\ApiClient(
     'https://demo.ecomlogic.com',
-    'T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH'
+    'T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH',
+    'v5'
 );
 
 
 try {
-    $response = $client->ordersGet('M-2342');
+    $response = $client->request->ordersGet('M-2342');
 } catch (\Ecomlogic\Exception\CurlException $e) {
     echo "Connection error: " . $e->getMessage();
 }
@@ -62,11 +63,12 @@ if ($response->isSuccessful()) {
 
 $client = new \Ecomlogic\ApiClient(
     'https://demo.ecomlogic.com',
-    'T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH'
+    'T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH',
+    'v4'
 );
 
 try {
-    $response = $client->ordersCreate(array(
+    $response = $client->request->ordersCreate(array(
         'externalId' => 'some-shop-order-id',
         'firstName' => 'John',
         'lastName' => 'Doe',
