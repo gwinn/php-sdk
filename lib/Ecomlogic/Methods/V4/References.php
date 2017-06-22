@@ -37,13 +37,13 @@ trait References
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function pricesTypes()
     {
         return $this->client->makeRequest(
             '/reference/price-types',
-            $this->client::METHOD_GET
+            "GET"
         );
     }
 
@@ -56,7 +56,7 @@ trait References
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function pricesTypesEdit(array $data)
     {
@@ -74,7 +74,7 @@ trait References
 
         return $this->client->makeRequest(
             sprintf('/reference/price-types/%s/edit', $data['code']),
-            $this->client::METHOD_POST,
+            "POST",
             ['priceType' => json_encode($data)]
         );
     }

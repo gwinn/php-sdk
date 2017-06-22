@@ -38,7 +38,7 @@ trait Stores
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function storeInventories(array $filter = [], $page = null, $limit = null)
     {
@@ -56,7 +56,7 @@ trait Stores
 
         return $this->client->makeRequest(
             '/store/inventories',
-            $this->client::METHOD_GET,
+            "GET",
             $parameters
         );
     }
@@ -71,7 +71,7 @@ trait Stores
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function storeInventoriesUpload(array $offers, $site = null)
     {
@@ -83,7 +83,7 @@ trait Stores
 
         return $this->client->makeRequest(
             '/store/inventories/upload',
-            $this->client::METHOD_POST,
+            "POST",
             $this->fillSite($site, ['offers' => json_encode($offers)])
         );
     }

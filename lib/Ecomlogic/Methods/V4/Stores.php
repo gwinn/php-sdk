@@ -36,12 +36,12 @@ trait Stores
      *
      * @param string $code get settings code
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      * @throws \Ecomlogic\Exception\InvalidJsonException
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \InvalidArgumentException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function storeSettingsGet($code)
     {
@@ -51,7 +51,7 @@ trait Stores
 
         return $this->client->makeRequest(
             "/store/setting/$code",
-            $this->client::METHOD_GET
+            "GET"
         );
     }
 
@@ -64,7 +64,7 @@ trait Stores
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \InvalidArgumentException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function storeSettingsEdit(array $configuration)
     {
@@ -76,7 +76,7 @@ trait Stores
 
         return $this->client->makeRequest(
             sprintf('/store/setting/%s/edit', $configuration['code']),
-            $this->client::METHOD_POST,
+            "POST",
             ['configuration' => json_encode($configuration)]
         );
     }
@@ -91,7 +91,7 @@ trait Stores
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function storePricesUpload(array $prices, $site = null)
     {
@@ -103,7 +103,7 @@ trait Stores
 
         return $this->client->makeRequest(
             '/store/prices/upload',
-            $this->client::METHOD_POST,
+            "POST",
             $this->fillSite($site, ['prices' => json_encode($prices)])
         );
     }
@@ -119,7 +119,7 @@ trait Stores
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function storeProducts(array $filter = [], $page = null, $limit = null)
     {
@@ -137,7 +137,7 @@ trait Stores
 
         return $this->client->makeRequest(
             '/store/products',
-            $this->client::METHOD_GET,
+            "GET",
             $parameters
         );
     }

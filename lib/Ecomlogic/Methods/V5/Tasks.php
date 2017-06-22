@@ -34,7 +34,7 @@ trait Tasks
      * @param null  $limit
      * @param null  $page
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function tasksList(array $filter = [], $limit = null, $page = null)
     {
@@ -52,7 +52,7 @@ trait Tasks
 
         return $this->client->makeRequest(
             '/tasks',
-            $this->client::METHOD_GET,
+            "GET",
             $parameters
         );
     }
@@ -63,7 +63,7 @@ trait Tasks
      * @param array $task
      * @param null  $site
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      *
      */
     public function tasksCreate($task, $site = null)
@@ -76,7 +76,7 @@ trait Tasks
 
         return $this->client->makeRequest(
             "/tasks/create",
-            $this->client::METHOD_POST,
+            "POST",
             $this->fillSite(
                 $site,
                 ['task' => json_encode($task)]
@@ -90,7 +90,7 @@ trait Tasks
      * @param array $task
      * @param null  $site
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      *
      */
     public function tasksEdit($task, $site = null)
@@ -103,7 +103,7 @@ trait Tasks
 
         return $this->client->makeRequest(
             "/tasks/{$task['id']}/edit",
-            $this->client::METHOD_POST,
+            "POST",
             $this->fillSite(
                 $site,
                 ['task' => json_encode($task)]
@@ -116,7 +116,7 @@ trait Tasks
      *
      * @param $id
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function tasksGet($id)
     {
@@ -128,7 +128,7 @@ trait Tasks
 
         return $this->client->makeRequest(
             "/tasks/$id",
-            $this->client::METHOD_GET
+            "GET"
         );
     }
 }

@@ -21,6 +21,7 @@ use Ecomlogic\Exception\InvalidJsonException;
  *
  * Response from Ecomlogic API
  *
+ * @property mixed success
  * @category Ecomlogic
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>

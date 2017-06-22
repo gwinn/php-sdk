@@ -17,8 +17,6 @@ namespace Ecomlogic;
 use Ecomlogic\Client\ApiVersion3;
 use Ecomlogic\Client\ApiVersion4;
 use Ecomlogic\Client\ApiVersion5;
-use Ecomlogic\Methods\Core;
-use Ecomlogic\Methods\Statistic;
 
 /**
  * PHP version 5.4
@@ -34,6 +32,7 @@ use Ecomlogic\Methods\Statistic;
 class ApiClient
 {
     public $request;
+    public $version;
 
     /**
      * Init version based client
@@ -42,9 +41,12 @@ class ApiClient
      * @param string $apiKey  api key
      * @param string $version api version
      * @param string $site    site code
+     *
      */
     public function __construct($url, $apiKey, $version = 'v5', $site = null)
     {
+        $this->version = $version;
+
         switch ($version) {
             case 'v5':
                 $this->request = new ApiVersion5($url, $apiKey, $version, $site);
@@ -58,6 +60,13 @@ class ApiClient
         }
     }
 
-    use Core;
-    use Statistic;
+    /**
+     * Get API version
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
 }

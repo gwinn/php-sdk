@@ -36,7 +36,7 @@ trait Telephony
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \InvalidArgumentException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function telephonySettingsGet($code)
     {
@@ -46,7 +46,7 @@ trait Telephony
 
         return $this->client->makeRequest(
             "/telephony/setting/$code",
-            $this->client::METHOD_GET
+            "GET"
         );
     }
 
@@ -60,7 +60,7 @@ trait Telephony
      * @param string $externalPhone
      * @param array  $webAnalyticsData
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      * @internal param string $code additional phone code
      * @internal param string $status call status
      *
@@ -95,7 +95,7 @@ trait Telephony
 
         return $this->client->makeRequest(
             '/telephony/call/event',
-            $this->client::METHOD_POST,
+            "POST",
             ['event' => json_encode($parameters)]
         );
     }
@@ -109,7 +109,7 @@ trait Telephony
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function telephonyCallsUpload(array $calls)
     {
@@ -121,7 +121,7 @@ trait Telephony
 
         return $this->client->makeRequest(
             '/telephony/calls/upload',
-            $this->client::METHOD_POST,
+            "POST",
             ['calls' => json_encode($calls)]
         );
     }
@@ -136,7 +136,7 @@ trait Telephony
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function telephonyCallManager($phone, $details)
     {
@@ -149,7 +149,7 @@ trait Telephony
 
         return $this->client->makeRequest(
             '/telephony/manager',
-            $this->client::METHOD_GET,
+            "GET",
             $parameters
         );
     }

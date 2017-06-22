@@ -38,7 +38,7 @@ trait Packs
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function ordersPacksList(array $filter = [], $page = null, $limit = null)
     {
@@ -56,7 +56,7 @@ trait Packs
 
         return $this->client->makeRequest(
             '/orders/packs',
-            $this->client::METHOD_GET,
+            "GET",
             $parameters
         );
     }
@@ -71,7 +71,7 @@ trait Packs
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function ordersPacksCreate(array $pack, $site = null)
     {
@@ -83,7 +83,7 @@ trait Packs
 
         return $this->client->makeRequest(
             '/orders/packs/create',
-            $this->client::METHOD_POST,
+            "POST",
             $this->fillSite($site, ['pack' => json_encode($pack)])
         );
     }
@@ -99,7 +99,7 @@ trait Packs
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function ordersPacksHistory(array $filter = [], $page = null, $limit = null)
     {
@@ -117,7 +117,7 @@ trait Packs
 
         return $this->client->makeRequest(
             '/orders/packs/history',
-            $this->client::METHOD_GET,
+            "GET",
             $parameters
         );
     }
@@ -131,7 +131,7 @@ trait Packs
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function ordersPacksGet($id)
     {
@@ -141,7 +141,7 @@ trait Packs
 
         return $this->client->makeRequest(
             "/orders/packs/$id",
-            $this->client::METHOD_GET
+            "GET"
         );
     }
 
@@ -154,7 +154,7 @@ trait Packs
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function ordersPacksDelete($id)
     {
@@ -164,7 +164,7 @@ trait Packs
 
         return $this->client->makeRequest(
             sprintf('/orders/packs/%s/delete', $id),
-            $this->client::METHOD_POST
+            "POST"
         );
     }
 
@@ -178,7 +178,7 @@ trait Packs
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function ordersPacksEdit(array $pack, $site = null)
     {
@@ -190,7 +190,7 @@ trait Packs
 
         return $this->client->makeRequest(
             sprintf('/orders/packs/%s/edit', $pack['id']),
-            $this->client::METHOD_POST,
+            "POST",
             $this->fillSite($site, ['pack' => json_encode($pack)])
         );
     }

@@ -34,7 +34,7 @@ trait CustomFields
      * @param null  $limit
      * @param null  $page
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function customFieldsList(array $filter = [], $limit = null, $page = null)
     {
@@ -52,7 +52,7 @@ trait CustomFields
 
         return $this->client->makeRequest(
             '/custom-fields',
-            $this->client::METHOD_GET,
+            "GET",
             $parameters
         );
     }
@@ -63,7 +63,7 @@ trait CustomFields
      * @param $entity
      * @param $customField
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function customFieldsCreate($entity, $customField)
     {
@@ -85,7 +85,7 @@ trait CustomFields
 
         return $this->client->makeRequest(
             "/custom-fields/$entity/create",
-            $this->client::METHOD_POST,
+            "POST",
             ['customField' => json_encode($customField)]
         );
     }
@@ -96,7 +96,7 @@ trait CustomFields
      * @param $entity
      * @param $customField
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function customFieldsEdit($entity, $customField)
     {
@@ -114,7 +114,7 @@ trait CustomFields
 
         return $this->client->makeRequest(
             "/custom-fields/$entity/edit/{$customField['code']}",
-            $this->client::METHOD_POST,
+            "POST",
             ['customField' => json_encode($customField)]
         );
     }
@@ -125,7 +125,7 @@ trait CustomFields
      * @param $entity
      * @param $code
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function customFieldsGet($entity, $code)
     {
@@ -143,7 +143,7 @@ trait CustomFields
 
         return $this->client->makeRequest(
             "/custom-fields/$entity/$code",
-            $this->client::METHOD_GET
+            "GET"
         );
     }
 
@@ -154,7 +154,7 @@ trait CustomFields
      * @param null  $limit
      * @param null  $page
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function customDictionariesList(array $filter = [], $limit = null, $page = null)
     {
@@ -172,7 +172,7 @@ trait CustomFields
 
         return $this->client->makeRequest(
             '/custom-fields/dictionaries',
-            $this->client::METHOD_GET,
+            "GET",
             $parameters
         );
     }
@@ -182,7 +182,7 @@ trait CustomFields
      *
      * @param $customDictionary
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function customDictionariesCreate($customDictionary)
     {
@@ -197,7 +197,7 @@ trait CustomFields
 
         return $this->client->makeRequest(
             "/custom-fields/dictionaries/{$customDictionary['code']}/create",
-            $this->client::METHOD_POST,
+            "POST",
             ['customDictionary' => json_encode($customDictionary)]
         );
     }
@@ -207,7 +207,7 @@ trait CustomFields
      *
      * @param $customDictionary
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function customDictionariesEdit($customDictionary)
     {
@@ -222,7 +222,7 @@ trait CustomFields
 
         return $this->client->makeRequest(
             "/custom-fields/dictionaries/{$customDictionary['code']}/edit",
-            $this->client::METHOD_POST,
+            "POST",
             ['customDictionary' => json_encode($customDictionary)]
         );
     }
@@ -232,7 +232,7 @@ trait CustomFields
      *
      * @param $code
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function customDictionariesGet($code)
     {
@@ -244,7 +244,7 @@ trait CustomFields
 
         return $this->client->makeRequest(
             "/custom-fields/dictionaries/$code",
-            $this->client::METHOD_GET
+            "GET"
         );
     }
 }

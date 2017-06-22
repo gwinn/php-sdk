@@ -38,7 +38,7 @@ trait Users
      * @param integer $id     user ID
      * @param string  $status user status
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function usersStatus($id, $status)
     {
@@ -50,9 +50,10 @@ trait Users
             );
         }
 
+        /** @noinspection PhpUndefinedMethodInspection */
         return $this->client->makeRequest(
             "/users/$id/status",
-            $this->client::METHOD_POST,
+            "POST",
             ['status' => $status]
         );
     }

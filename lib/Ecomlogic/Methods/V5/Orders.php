@@ -39,7 +39,7 @@ trait Orders
      * @param array  $order
      * @param array  $resultOrder
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function ordersCombine($order, $resultOrder, $technique = 'ours')
     {
@@ -59,7 +59,7 @@ trait Orders
 
         return $this->client->makeRequest(
             '/orders/combine',
-            $this->client::METHOD_POST,
+            "POST",
             [
                 'technique' => $technique,
                 'order' => json_encode($order),
@@ -77,7 +77,7 @@ trait Orders
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function ordersPaymentCreate(array $payment)
     {
@@ -89,7 +89,7 @@ trait Orders
 
         return $this->client->makeRequest(
             '/orders/payments/create',
-            $this->client::METHOD_POST,
+            "POST",
             ['payment' => json_encode($payment)]
         );
     }
@@ -101,7 +101,7 @@ trait Orders
      * @param string $by      by key
      * @param null   $site    site code
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function ordersPaymentEdit(array $payment, $by = 'id', $site = null)
     {
@@ -121,7 +121,7 @@ trait Orders
 
         return $this->client->makeRequest(
             sprintf('/orders/payments/%s/edit', $payment[$by]),
-            $this->client::METHOD_POST,
+            "POST",
             $this->fillSite(
                 $site,
                 ['payment' => json_encode($payment), 'by' => $by]

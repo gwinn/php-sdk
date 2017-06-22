@@ -34,7 +34,7 @@ trait Segments
      * @param null  $limit
      * @param null  $page
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function segmentsList(array $filter = [], $limit = null, $page = null)
     {
@@ -52,7 +52,7 @@ trait Segments
 
         return $this->client->makeRequest(
             '/segments',
-            $this->client::METHOD_GET,
+            "GET",
             $parameters
         );
     }

@@ -37,7 +37,7 @@ trait Customers
      * @param null $page
      * @param null $limit
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function customersHistory(array $filter = [], $page = null, $limit = null)
     {
@@ -55,7 +55,7 @@ trait Customers
 
         return $this->client->makeRequest(
             '/customers/history',
-            $this->client::METHOD_GET,
+            "GET",
             $parameters
         );
     }

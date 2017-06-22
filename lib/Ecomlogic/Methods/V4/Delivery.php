@@ -36,7 +36,7 @@ trait Delivery
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function deliverySettingsGet($code)
     {
@@ -46,7 +46,7 @@ trait Delivery
 
         return $this->client->makeRequest(
             "/delivery/generic/setting/$code",
-            $this->client::METHOD_GET
+            "GET"
         );
     }
 
@@ -59,7 +59,7 @@ trait Delivery
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \InvalidArgumentException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function deliverySettingsEdit(array $configuration)
     {
@@ -71,7 +71,7 @@ trait Delivery
 
         return $this->client->makeRequest(
             sprintf('/delivery/generic/setting/%s/edit', $configuration['code']),
-            $this->client::METHOD_POST,
+            "POST",
             ['configuration' => json_encode($configuration)]
         );
     }
@@ -86,7 +86,7 @@ trait Delivery
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \InvalidArgumentException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
     public function deliveryTracking($code, array $statusUpdate)
     {
@@ -102,7 +102,7 @@ trait Delivery
 
         return $this->client->makeRequest(
             sprintf('/delivery/generic/%s/tracking', $code),
-            $this->client::METHOD_POST,
+            "POST",
             ['statusUpdate' => json_encode($statusUpdate)]
         );
     }
