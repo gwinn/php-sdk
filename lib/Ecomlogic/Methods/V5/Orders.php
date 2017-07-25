@@ -128,4 +128,25 @@ trait Orders
             )
         );
     }
+
+    /**
+     * Edit an order payment
+     *
+     * @param string $id payment id
+     *
+     * @return \Ecomlogic\Response\ApiResponse
+     */
+    public function ordersPaymentDelete($id)
+    {
+        if (!$id) {
+            throw new \InvalidArgumentException(
+                'Parameter `id` must be set'
+            );
+        }
+
+        return $this->client->makeRequest(
+            sprintf('/orders/payments/%s/delete', $id),
+            "POST"
+        );
+    }
 }
