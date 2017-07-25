@@ -9,7 +9,7 @@
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 
 namespace Ecomlogic\Tests;
@@ -23,12 +23,12 @@ use Ecomlogic\Test\TestCase;
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 class ApiClientTest extends TestCase
 {
     /**
-     * @group unit
+     * @group client
      */
     public function testConstruct()
     {

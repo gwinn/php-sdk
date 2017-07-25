@@ -9,10 +9,10 @@
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 
-namespace Ecomlogic\Tests;
+namespace Ecomlogic\Tests\Methods\Version5;
 
 use Ecomlogic\Test\TestCase;
 
@@ -23,37 +23,37 @@ use Ecomlogic\Test\TestCase;
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 class ApiClientTasksTest extends TestCase
 {
     /**
-     * @group tasks
+     * @group tasks_v5
      */
     public function testTasksList()
     {
-        $client = static::getApiClient();
 
-        $response = $client->tasksList();
+        $client = static::getApiClient();
+        $response = $client->request->tasksList();
 
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertEquals(200, $response->getStatusCode());
     }
 
     /**
-     * @group tasks
+     * @group tasks_v5
      * @expectedException \InvalidArgumentException
      */
     public function testTasksCreateExceptionEmpty()
     {
         $client = static::getApiClient();
-        $client->tasksCreate([]);
+        $client->request->tasksCreate([]);
     }
 
     public function testTasksCRU()
     {
-        $client = static::getApiClient();
 
+        $client = static::getApiClient();
         $task = [
             'text' => 'test task',
             'commentary' => 'test task commentary',
@@ -61,14 +61,14 @@ class ApiClientTasksTest extends TestCase
             'complete' => false
         ];
 
-        $responseCreate = $client->tasksCreate($task);
+        $responseCreate = $client->request->tasksCreate($task);
 
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $responseCreate);
         static::assertEquals(201, $responseCreate->getStatusCode());
 
         $uid = $responseCreate['id'];
 
-        $responseRead = $client->tasksGet($uid);
+        $responseRead = $client->request->tasksGet($uid);
 
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $responseRead);
         static::assertEquals(200, $responseRead->getStatusCode());
@@ -76,7 +76,7 @@ class ApiClientTasksTest extends TestCase
         $task['id'] = $uid;
         $task['complete'] = true;
 
-        $responseUpdate = $client->tasksEdit($task);
+        $responseUpdate = $client->request->tasksEdit($task);
 
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $responseUpdate);
         static::assertEquals(200, $responseUpdate->getStatusCode());

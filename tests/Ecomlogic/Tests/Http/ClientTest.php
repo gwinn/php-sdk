@@ -9,7 +9,7 @@
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 
 namespace Ecomlogic\Tests\Http;
@@ -25,12 +25,12 @@ use Ecomlogic\Http\Client;
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 class ClientTest extends TestCase
 {
     /**
-     * @group unit
+     * @group client
      */
     public function testConstruct()
     {
@@ -40,17 +40,17 @@ class ClientTest extends TestCase
     }
 
     /**
-     * @group unit
+     * @group client
      * @expectedException \InvalidArgumentException
      */
     public function testHttpRequiring()
     {
-        $client = new Client('http://demo.ecomlogic.com/api/' . ApiClient::VERSION, ['apiKey' => '123']);
+        $client = new Client('http://demo.retailcrm.ru/api/' . $_SERVER['CRM_API_VERSION'], ['apiKey' => '123']);
         return $client;
     }
 
     /**
-     * @group unit
+     * @group client
      * @expectedException \InvalidArgumentException
      */
     public function testRequestWrongMethod()
@@ -60,7 +60,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * @group dev
+     * @group client
      * @expectedException \Ecomlogic\Exception\CurlException
      */
     public function testRequestWrongUrl()
@@ -70,7 +70,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * @group dev
+     * @group client
      */
     public function testRequestSuccess()
     {

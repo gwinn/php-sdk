@@ -9,10 +9,10 @@
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 
-namespace Ecomlogic\Tests;
+namespace Ecomlogic\Tests\Methods\Version4;
 
 use Ecomlogic\Test\TestCase;
 
@@ -23,17 +23,17 @@ use Ecomlogic\Test\TestCase;
  */
 class ApiClientMarketplaceTest extends TestCase
 {
-    const SNAME = 'Marketplace dev';
-    const SCODE = 'dev';
+    const SNAME = 'Marketplace integration v4';
+    const SCODE = 'integration_v4';
 
     /**
-     * @group marketplace
+     * @group marketplace_v4
      */
     public function testConfigurationEdit()
     {
-        $client = static::getApiClient();
+        $client = static::getApiClient(null, null, "v4");
 
-        $response = $client->marketplaceSettingsEdit(
+        $response = $client->request->marketplaceSettingsEdit(
             [
                 'name' => self::SNAME,
                 'code' => self::SCODE,

@@ -9,10 +9,10 @@
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 
-namespace Ecomlogic\Tests;
+namespace Ecomlogic\Tests\Methods\Version4;
 
 use Ecomlogic\Test\TestCase;
 
@@ -22,12 +22,12 @@ use Ecomlogic\Test\TestCase;
  * @package Ecomlogic\Tests
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 class ApiClientTelephonyTest extends TestCase
 {
 
-    const TEL_CODE = 'telephony-code';
+    const TEL_CODE = 'telephony-code-v4';
     const TEL_CLIENT = '123';
     const TEL_IMAGE = 'http://www.mec.ph/horizon/wp-content/uploads/2011/11/telephony.svg';
 
@@ -40,13 +40,13 @@ class ApiClientTelephonyTest extends TestCase
      */
     public function testTelephonySettingsEdit()
     {
-        $client = static::getApiClient();
+        $client = static::getApiClient(null, null, \Ecomlogic\ApiClient::V4);
 
-        $response = $client->telephonySettingsEdit(
+        $response = $client->request->telephonySettingsEdit(
             self::TEL_CODE,
             self::TEL_CLIENT,
             true,
-            'TestTelephony',
+            'TestTelephonyV4',
             false,
             self::TEL_IMAGE,
             [['userId' => $_SERVER['CRM_USER_ID'], 'code' => '101']],
@@ -67,9 +67,9 @@ class ApiClientTelephonyTest extends TestCase
      */
     public function testTelephonySettingsGet()
     {
-        $client = static::getApiClient();
+        $client = static::getApiClient(null, null, \Ecomlogic\ApiClient::V4);
 
-        $response = $client->telephonySettingsGet(self::TEL_CODE);
+        $response = $client->request->telephonySettingsGet(self::TEL_CODE);
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertEquals(200, $response->getStatusCode());
         static::assertTrue($response->isSuccessful());
@@ -84,9 +84,9 @@ class ApiClientTelephonyTest extends TestCase
      */
     public function testTelephonyEvent()
     {
-        $client = static::getApiClient();
+        $client = static::getApiClient(null, null, \Ecomlogic\ApiClient::V4);
 
-        $response = $client->telephonyCallEvent(
+        $response = $client->request->telephonyCallEvent(
             '+79999999999',
             'in',
             ['101'],
@@ -109,9 +109,9 @@ class ApiClientTelephonyTest extends TestCase
      */
     public function testTelephonyUpload()
     {
-        $client = static::getApiClient();
+        $client = static::getApiClient(null, null, \Ecomlogic\ApiClient::V4);
 
-        $response = $client->telephonyCallsUpload(
+        $response = $client->request->telephonyCallsUpload(
             [
                 [
                     'date' => '2016-07-22 00:18:00',
@@ -148,9 +148,9 @@ class ApiClientTelephonyTest extends TestCase
      */
     public function testTelephonyManager()
     {
-        $client = static::getApiClient();
+        $client = static::getApiClient(null, null, \Ecomlogic\ApiClient::V4);
 
-        $response = $client->telephonyCallManager('+79999999999', 1);
+        $response = $client->request->telephonyCallManager('+79999999999', 1);
 
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertEquals(200, $response->getStatusCode());

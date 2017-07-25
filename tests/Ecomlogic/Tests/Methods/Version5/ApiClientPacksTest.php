@@ -9,10 +9,10 @@
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 
-namespace Ecomlogic\Tests;
+namespace Ecomlogic\Tests\Methods\Version5;
 
 use Ecomlogic\Test\TestCase;
 
@@ -23,21 +23,18 @@ use Ecomlogic\Test\TestCase;
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 class ApiClientPacksTest extends TestCase
 {
     /**
-     * Test packs history
-     *
-     * @group  packs
-     * @return void
+     * @group packs_v5
      */
     public function testPacksHistory()
     {
         $client = static::getApiClient();
 
-        $response = $client->ordersPacksHistory();
+        $response = $client->request->ordersPacksHistory();
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertEquals(200, $response->getStatusCode());
         static::assertTrue($response->success);
@@ -52,21 +49,19 @@ class ApiClientPacksTest extends TestCase
     }
 
     /**
-     * Test packs failed create
-     *
-     * @group  packs
-     * @return void
+     * @group packs_v5
      */
     public function testPacksCreateFailed()
     {
         $client = static::getApiClient();
+
         $pack = [
             'itemId' => 12,
             'store' => 'test',
             'quantity' => 2
         ];
 
-        $response = $client->ordersPacksCreate($pack);
+        $response = $client->request->ordersPacksCreate($pack);
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertEquals(400, $response->getStatusCode());
         static::assertFalse($response->success);

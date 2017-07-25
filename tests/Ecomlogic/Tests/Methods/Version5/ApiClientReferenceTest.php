@@ -9,10 +9,10 @@
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 
-namespace Ecomlogic\Tests;
+namespace Ecomlogic\Tests\Methods\Version5;
 
 use Ecomlogic\Test\TestCase;
 
@@ -23,21 +23,22 @@ use Ecomlogic\Test\TestCase;
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 class ApiClientReferenceTest extends TestCase
 {
     /**
-     * @group reference
+     * @group reference_v5
      * @dataProvider getListDictionaries
      * @param $name
      */
     public function testList($name)
     {
+
         $client = static::getApiClient();
 
         $method = $name . 'List';
-        $response = $client->$method();
+        $response = $client->request->$method();
 
         /* @var \Ecomlogic\Response\ApiResponse $response */
 
@@ -48,7 +49,7 @@ class ApiClientReferenceTest extends TestCase
     }
 
     /**
-     * @group        reference
+     * @group reference_v5
      * @dataProvider getEditDictionaries
      * @expectedException \InvalidArgumentException
      *
@@ -56,20 +57,22 @@ class ApiClientReferenceTest extends TestCase
      */
     public function testEditingException($name)
     {
+
         $client = static::getApiClient();
 
         $method = $name . 'Edit';
-        $client->$method([]);
+        $client->request->$method([]);
     }
 
     /**
-     * @group        reference
+     * @group reference_v5
      * @dataProvider getEditDictionaries
      *
      * @param $name
      */
     public function testEditing($name)
     {
+
         $client = static::getApiClient();
 
         $code = 'dict-' . strtolower($name) . '-' . time();
@@ -83,12 +86,12 @@ class ApiClientReferenceTest extends TestCase
             $params['group'] = 'new';
         }
 
-        $response = $client->$method($params);
+        $response = $client->request->$method($params);
         /* @var \Ecomlogic\Response\ApiResponse $response */
 
         static::assertTrue(in_array($response->getStatusCode(), [200, 201]));
 
-        $response = $client->$method([
+        $response = $client->request->$method([
             'code' => $code,
             'name' => 'Bbb' . $code,
             'active' => false
@@ -98,12 +101,13 @@ class ApiClientReferenceTest extends TestCase
     }
 
     /**
-     * @group reference
+     * @group reference_v5
      * @group site
      */
     public function testSiteEditing()
     {
         $name = 'sites';
+
         $client = static::getApiClient();
 
         $code = 'dict-' . strtolower($name) . '-' . time();
@@ -114,12 +118,12 @@ class ApiClientReferenceTest extends TestCase
             'active' => false
         ];
 
-        $response = $client->$method($params);
+        $response = $client->request->$method($params);
         /* @var \Ecomlogic\Response\ApiResponse $response */
 
         static::assertEquals(400, $response->getStatusCode());
 
-        if ($code == $client->getSite()) {
+        if ($code == $client->request->getSite()) {
             $method = $name . 'Edit';
             $params = [
                 'code' => $code,
@@ -127,7 +131,7 @@ class ApiClientReferenceTest extends TestCase
                 'active' => false
             ];
 
-            $response = $client->$method($params);
+            $response = $client->request->$method($params);
             static::assertEquals(200, $response->getStatusCode());
         }
     }
@@ -148,6 +152,7 @@ class ApiClientReferenceTest extends TestCase
             ['statusGroups'],
             ['statuses'],
             ['sites'],
+            ['stores'],
         ];
     }
 

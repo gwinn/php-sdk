@@ -9,10 +9,10 @@
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 
-namespace Ecomlogic\Tests;
+namespace Ecomlogic\Tests\Methods\Version5;
 
 use Ecomlogic\Test\TestCase;
 
@@ -23,96 +23,75 @@ use Ecomlogic\Test\TestCase;
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 class ApiClientPricesTest extends TestCase
 {
 
-    protected $code;
-
     /**
-     * ApiClientPricesTest constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->code = 'price-code-a-' . time();
-    }
-
-    /**
-     * @group prices
-     */
-    public function testUsersGroups()
-    {
-        $client = static::getApiClient();
-
-        $response = $client->usersGroups();
-        static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
-        static::assertEquals(200, $response->getStatusCode());
-        static::assertTrue($response->isSuccessful());
-    }
-
-    /**
-     * @group prices
-     */
-    public function testPricesGet()
-    {
-        $client = static::getApiClient();
-
-        $response = $client->pricesTypes();
-        static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
-        static::assertEquals(200, $response->getStatusCode());
-        static::assertTrue($response->isSuccessful());
-    }
-
-    /**
-     * @group prices
+     * @group prices_v5
      */
     public function testPricesEdit()
     {
-
         $client = static::getApiClient();
 
-        $response = $client->pricesEdit(
+        $response = $client->request->pricesTypesEdit(
             [
-                'code' => $this->code,
-                'name' => $this->code,
+                'code' => 'sample_v4_price_code',
+                'name' => 'Sample v4 price type',
                 'ordering' => 500,
                 'active' => true
             ]
         );
 
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
-        static::assertEquals(201, $response->getStatusCode());
+        static::assertEquals(200, $response->getStatusCode());
         static::assertTrue($response->isSuccessful());
     }
 
     /**
-     * @group prices
+     * @depends testPricesEdit
+     * @group prices_v5
+     */
+    public function testPricesGet()
+    {
+        $client = static::getApiClient();
+        $response = $client->request->pricesTypes();
+        static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
+        static::assertTrue(in_array($response->getStatusCode(), [200, 201]));
+        static::assertTrue($response->isSuccessful());
+    }
+
+
+
+    /**
+     * @group prices_v5
      * @expectedException \InvalidArgumentException
      */
     public function testPricesUploadExceptionEmpty()
     {
         $client = static::getApiClient();
-        $client->storePricesUpload([]);
+        $client->request->storePricesUpload([]);
     }
 
     /**
-     * @group prices
+     * @depends testPricesEdit
+     * @group prices_v5
      */
     public function testPricesUpload()
     {
+
         $client = static::getApiClient();
 
         $xmlIdA = 'upload-a-' . time();
         $xmlIdB = 'upload-b-' . time();
 
-        $response = $client->storePricesUpload([
+        $response = $client->request->storePricesUpload([
             [
                 'xmlId' => $xmlIdA,
                 'prices' => [
                     [
-                        'code' => $this->code,
+                        'code' => 'sample_v4_price_code',
                         'price' => 1700
                     ]
                 ]
@@ -121,7 +100,7 @@ class ApiClientPricesTest extends TestCase
                 'xmlId' => $xmlIdB,
                 'prices' => [
                     [
-                        'code' => $this->code,
+                        'code' => 'sample_v4_price_code',
                         'price' => 1500
                     ]
                 ]

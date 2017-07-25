@@ -9,10 +9,10 @@
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 
-namespace Ecomlogic\Tests;
+namespace Ecomlogic\Tests\Methods\Version5;
 
 use Ecomlogic\Test\TestCase;
 
@@ -23,14 +23,14 @@ use Ecomlogic\Test\TestCase;
  * @package  Ecomlogic
  * @author   Ecomlogic <dev@ecomlogic.com>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 class ApiClientOrdersTest extends TestCase
 {
     const FIRST_NAME = 'Иннокентий';
 
     /**
-     * @group orders
+     * @group orders_v5
      */
     public function testOrdersCreate()
     {
@@ -38,7 +38,7 @@ class ApiClientOrdersTest extends TestCase
 
         $externalId = 'o-create-' . time();
 
-        $response = $client->ordersCreate([
+        $response = $client->request->ordersCreate([
             'firstName' => self::FIRST_NAME,
             'externalId' => $externalId,
         ]);
@@ -53,13 +53,13 @@ class ApiClientOrdersTest extends TestCase
     }
 
     /**
-     * @group orders
+     * @group orders_v5
      * @expectedException \InvalidArgumentException
      */
     public function testOrdersCreateExceptionEmpty()
     {
         $client = static::getApiClient();
-        $client->ordersCreate([]);
+        $client->request->ordersCreate([]);
     }
 
     /**
@@ -72,19 +72,19 @@ class ApiClientOrdersTest extends TestCase
     {
         $client = static::getApiClient();
 
-        $response = $client->ordersStatuses();
+        $response = $client->request->ordersStatuses();
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertEquals(400, $response->getStatusCode());
         static::assertFalse($response->isSuccessful());
 
-        $response = $client->ordersStatuses([], ['asdf']);
+        $response = $client->request->ordersStatuses([], ['asdf']);
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertEquals(200, $response->getStatusCode());
         static::assertTrue($response->isSuccessful());
         $orders = $response['orders'];
         static::assertEquals(0, sizeof($orders));
 
-        $response = $client->ordersStatuses([], [$ids['externalId']]);
+        $response = $client->request->ordersStatuses([], [$ids['externalId']]);
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertEquals(200, $response->getStatusCode());
         static::assertTrue($response->isSuccessful());
@@ -92,14 +92,14 @@ class ApiClientOrdersTest extends TestCase
         static::assertEquals(1, sizeof($orders));
         static::assertEquals('new', $orders[0]['status']);
 
-        $response = $client->ordersStatuses([$ids['id']], [$ids['externalId']]);
+        $response = $client->request->ordersStatuses([$ids['id']], [$ids['externalId']]);
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertEquals(200, $response->getStatusCode());
         static::assertTrue($response->isSuccessful());
         $orders = $response['orders'];
         static::assertEquals(1, sizeof($orders));
 
-        $response = $client->ordersStatuses([$ids['id']]);
+        $response = $client->request->ordersStatuses([$ids['id']]);
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertEquals(200, $response->getStatusCode());
         static::assertTrue($response->isSuccessful());
@@ -119,32 +119,32 @@ class ApiClientOrdersTest extends TestCase
     {
         $client = static::getApiClient();
 
-        $response = $client->ordersGet(678678678);
+        $response = $client->request->ordersGet(678678678);
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertEquals(404, $response->getStatusCode());
         static::assertFalse($response->isSuccessful());
 
-        $response = $client->ordersGet($ids['id'], 'id');
+        $response = $client->request->ordersGet($ids['id'], 'id');
         $orderById = $response['order'];
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertEquals(200, $response->getStatusCode());
         static::assertTrue($response->isSuccessful());
         static::assertEquals(self::FIRST_NAME, $response['order']['firstName']);
 
-        $response = $client->ordersGet($ids['externalId'], 'externalId');
+        $response = $client->request->ordersGet($ids['externalId'], 'externalId');
         static::assertEquals($orderById['id'], $response['order']['id']);
 
         return $ids;
     }
 
     /**
-     * @group orders
+     * @group orders_v5
      * @expectedException \InvalidArgumentException
      */
     public function testOrdersGetException()
     {
         $client = static::getApiClient();
-        $client->ordersGet(678678678, 'asdf');
+        $client->request->ordersGet(678678678, 'asdf');
     }
 
     /**
@@ -157,7 +157,7 @@ class ApiClientOrdersTest extends TestCase
     {
         $client = static::getApiClient();
 
-        $response = $client->ordersEdit(
+        $response = $client->request->ordersEdit(
             [
                 'id' => 22342134,
                 'lastName' => '12345',
@@ -167,7 +167,7 @@ class ApiClientOrdersTest extends TestCase
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertEquals(404, $response->getStatusCode());
 
-        $response = $client->ordersEdit([
+        $response = $client->request->ordersEdit([
             'externalId' => $ids['externalId'],
             'lastName' => '12345',
         ]);
@@ -177,79 +177,79 @@ class ApiClientOrdersTest extends TestCase
     }
 
     /**
-     * @group orders
+     * @group orders_v5
      * @expectedException \InvalidArgumentException
      */
     public function testOrdersEditExceptionEmpty()
     {
         $client = static::getApiClient();
-        $client->ordersEdit([], 'asdf');
+        $client->request->ordersEdit([], 'asdf');
     }
 
     /**
-     * @group orders
+     * @group orders_v5
      * @expectedException \InvalidArgumentException
      */
     public function testOrdersEditException()
     {
         $client = static::getApiClient();
-        $client->ordersEdit(['id' => 678678678], 'asdf');
+        $client->request->ordersEdit(['id' => 678678678], 'asdf');
     }
 
     /**
-     * @group orders
+     * @group orders_v5
      */
     public function testOrdersHistory()
     {
         $client = static::getApiClient();
 
-        $response = $client->ordersHistory();
+        $response = $client->request->ordersHistory();
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertEquals(200, $response->getStatusCode());
         static::assertTrue($response->isSuccessful());
     }
 
     /**
-     * @group orders
+     * @group orders_v5
      */
     public function testOrdersList()
     {
         $client = static::getApiClient();
 
-        $response = $client->ordersList();
+        $response = $client->request->ordersList();
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertTrue($response->isSuccessful());
         static::assertTrue(isset($response['orders']));
 
-        $response = $client->ordersList([], 1, 300);
+        $response = $client->request->ordersList([], 1, 300);
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertFalse(
             $response->isSuccessful(),
             'Pagination error'
         );
 
-        $response = $client->ordersList(['paymentStatus' => 'paid'], 1);
+        $response = $client->request->ordersList(['paymentStatus' => 'paid'], 1);
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
     }
 
     /**
-     * @group orders
+     * @group orders_v5
      * @expectedException \InvalidArgumentException
      */
     public function testOrdersFixExternalIdsException()
     {
         $client = static::getApiClient();
-        $client->ordersFixExternalIds([]);
+        $client->request->ordersFixExternalIds([]);
     }
 
     /**
-     * @group orders
+     * @group orders_v5
      */
     public function testOrdersFixExternalIds()
     {
         $client = static::getApiClient();
 
-        $response = $client->ordersCreate([
+        $response = $client->request->ordersCreate([
             'firstName' => 'Aaa',
         ]);
         static::assertTrue(
@@ -260,7 +260,7 @@ class ApiClientOrdersTest extends TestCase
         $id = $response['id'];
         $externalId = 'asdf' . time();
 
-        $response = $client->ordersFixExternalIds([
+        $response = $client->request->ordersFixExternalIds([
             ['id' => $id, 'externalId' => $externalId]
         ]);
 
@@ -269,7 +269,7 @@ class ApiClientOrdersTest extends TestCase
             'Fixed order ids'
         );
 
-        $response = $client->ordersGet($externalId);
+        $response = $client->request->ordersGet($externalId);
         static::assertTrue(
             $response->isSuccessful(),
             'Got order'
@@ -287,17 +287,17 @@ class ApiClientOrdersTest extends TestCase
     }
 
     /**
-     * @group orders
+     * @group orders_v5
      * @expectedException \InvalidArgumentException
      */
     public function testOrdersUploadExceptionEmpty()
     {
         $client = static::getApiClient();
-        $client->ordersUpload([]);
+        $client->request->ordersUpload([]);
     }
 
     /**
-     * @group orders
+     * @group orders_v5
      */
     public function testOrdersUpload()
     {
@@ -306,7 +306,7 @@ class ApiClientOrdersTest extends TestCase
         $externalIdA = 'upload-a-' . time();
         $externalIdB = 'upload-b-' . time();
 
-        $response = $client->ordersUpload([
+        $response = $client->request->ordersUpload([
             [
                 'externalId' => $externalIdA,
                 'firstName' => 'Aaa',
@@ -331,13 +331,13 @@ class ApiClientOrdersTest extends TestCase
     }
 
     /**
-     * @group orders
+     * @group orders_v5
      */
     public function testOrdersCombine()
     {
         $client = static::getApiClient();
 
-        $responseCreateFirst = $client->ordersCreate([
+        $responseCreateFirst = $client->request->ordersCreate([
             'firstName'  => 'Aaa111',
             'externalId' => 'AA-' . time(),
             'phone'      => '+79999999990'
@@ -348,7 +348,7 @@ class ApiClientOrdersTest extends TestCase
             'Got order'
         );
 
-        $responseCreateSecond = $client->ordersCreate([
+        $responseCreateSecond = $client->request->ordersCreate([
             'firstName'  => 'Aaa222',
             'externalId' => 'BB-' . time(),
             'phone'      => '+79999999991'
@@ -362,7 +362,7 @@ class ApiClientOrdersTest extends TestCase
         $order = ['id' => $responseCreateFirst['id']];
         $resultOrder = ['id' => $responseCreateSecond['id']];
 
-        $response = $client->ordersCombine($order, $resultOrder, 'ours');
+        $response = $client->request->ordersCombine($order, $resultOrder, 'ours');
 
         static::assertTrue(
             $response->isSuccessful(),
@@ -375,7 +375,7 @@ class ApiClientOrdersTest extends TestCase
         $client = static::getApiClient();
         $externalId = 'AA-' . time();
 
-        $responseCreateFirst = $client->ordersCreate([
+        $responseCreateFirst = $client->request->ordersCreate([
             'firstName'  => 'Aaa111aaA',
             'phone'      => '+79999999990'
         ]);
@@ -394,7 +394,7 @@ class ApiClientOrdersTest extends TestCase
             'status' => 'paid'
         ];
 
-        $response = $client->ordersPaymentCreate($payment);
+        $response = $client->request->ordersPaymentCreate($payment);
 
         static::assertTrue(
             $response->isSuccessful(),
@@ -403,18 +403,23 @@ class ApiClientOrdersTest extends TestCase
 
         $paymentEdit = [
             'id' => $response['id'],
-            'externalId' => $externalId,
             'amount' => 1500,
             'comment' => 'test payment!',
-            'type' => 'cash',
             'status' => 'paid'
         ];
 
-        $responseAgain = $client->ordersPaymentEdit($paymentEdit);
+        $responseAgain = $client->request->ordersPaymentEdit($paymentEdit);
 
         static::assertTrue(
             $responseAgain->isSuccessful(),
-            'Got payment'
+            'Edit payment'
+        );
+
+        $responseLast = $client->request->ordersPaymentDelete($response['id']);
+
+        static::assertTrue(
+            $responseLast->isSuccessful(),
+            'Delete payment'
         );
     }
 }
