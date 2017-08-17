@@ -74,7 +74,7 @@ trait Module
         return $this->client->makeRequest(
             sprintf('/integration-modules/%s/edit', $configuration['code']),
             "POST",
-            ['configuration' => json_encode($configuration)]
+            ['integrationModule' => json_encode($configuration)]
         );
     }
 }

@@ -46,7 +46,7 @@ class ApiVersion5 extends AbstractLoader
     use V5\Customers;
     use V5\CustomFields;
     use V5\Delivery;
-    use V5\Marketplace;
+    use V5\Module;
     use V5\Orders;
     use V5\Packs;
     use V5\References;
