@@ -3,7 +3,7 @@
 /**
  * PHP version 5.4
  *
- * TaskTrait
+ * CustomersTrait
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -17,7 +17,7 @@ namespace Ecomlogic\Methods\V3;
 /**
  * PHP version 5.4
  *
- * TaskTrait class
+ * CustomersTrait class
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -75,7 +75,7 @@ trait Customers
      */
     public function customersCreate(array $customer, $site = null)
     {
-        if (! count($customer)) {
+        if (!count($customer)) {
             throw new \InvalidArgumentException(
                 'Parameter `customer` must contains a data'
             );
@@ -101,7 +101,7 @@ trait Customers
      */
     public function customersFixExternalIds(array $ids)
     {
-        if (! count($ids)) {
+        if (!count($ids)) {
             throw new \InvalidArgumentException(
                 'Method parameter must contains at least one IDs pair'
             );
@@ -128,7 +128,7 @@ trait Customers
      */
     public function customersUpload(array $customers, $site = null)
     {
-        if (! count($customers)) {
+        if (!count($customers)) {
             throw new \InvalidArgumentException(
                 'Parameter `customers` must contains array of the customers'
             );

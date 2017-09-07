@@ -3,7 +3,7 @@
 /**
  * PHP version 5.4
  *
- * TaskTrait
+ * ReferencesTrait
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -19,7 +19,7 @@ use Ecomlogic\Methods\V4\References as Previous;
 /**
  * PHP version 5.4
  *
- * TaskTrait class
+ * ReferencesTrait class
  *
  * @category Ecomlogic
  * @package  Ecomlogic

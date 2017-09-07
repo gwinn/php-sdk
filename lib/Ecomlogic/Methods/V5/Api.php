@@ -3,7 +3,7 @@
 /**
  * PHP version 5.4
  *
- * Statistic class
+ * ApiTrait
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -11,15 +11,12 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
  */
-
-namespace Ecomlogic\Methods;
-
-use Ecomlogic\Response\ApiResponse;
+namespace Ecomlogic\Methods\V5;
 
 /**
  * PHP version 5.4
  *
- * Statistic class
+ * ApiTrait class
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -27,22 +24,37 @@ use Ecomlogic\Response\ApiResponse;
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
  */
-trait Statistic
+trait Api
 {
     /**
-     * Update CRM basic statistic
+     * Get available api versions
      *
-     * @throws \InvalidArgumentException
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
      *
-     * @return ApiResponse
+     * @return \Ecomlogic\Response\ApiResponse
      */
-    public function statisticUpdate()
+    public function apiVersions()
     {
         return $this->client->makeRequest(
-            '/statistic/update',
-            $this->client::METHOD_GET
+            '/api/api-versions',
+            "GET"
+        );
+    }
+
+    /**
+     * Get available api methods & available sites
+     *
+     * @throws \Ecomlogic\Exception\CurlException
+     * @throws \Ecomlogic\Exception\InvalidJsonException
+     *
+     * @return \Ecomlogic\Response\ApiResponse
+     */
+    public function apiCredentials()
+    {
+        return $this->client->makeRequest(
+            '/api/credentials',
+            "GET"
         );
     }
 }

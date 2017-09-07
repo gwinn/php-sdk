@@ -3,7 +3,7 @@
 /**
  * PHP version 5.4
  *
- * TaskTrait
+ * UsersTrait
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -20,7 +20,7 @@ use Ecomlogic\Methods\V4\Users as Previous;
 /**
  * PHP version 5.4
  *
- * TaskTrait class
+ * UsersTrait class
  *
  * @category Ecomlogic
  * @package  Ecomlogic

@@ -3,7 +3,7 @@
 /**
  * PHP version 5.4
  *
- * TaskTrait
+ * OrdersTrailt
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -19,7 +19,7 @@ use Ecomlogic\Methods\V3\Orders as Previous;
 /**
  * PHP version 5.4
  *
- * TaskTrait class
+ * OrdersTrailt class
  *
  * @category Ecomlogic
  * @package  Ecomlogic

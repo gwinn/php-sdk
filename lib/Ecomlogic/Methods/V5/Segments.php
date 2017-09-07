@@ -3,7 +3,7 @@
 /**
  * PHP version 5.4
  *
- * Segments
+ * SegmentsTrait
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -17,7 +17,7 @@ namespace Ecomlogic\Methods\V5;
 /**
  * PHP version 5.4
  *
- * Segments class
+ * SegmentsTrait class
  *
  * @category Ecomlogic
  * @package  Ecomlogic

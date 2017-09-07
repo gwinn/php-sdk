@@ -3,7 +3,7 @@
 /**
  * PHP version 5.4
  *
- * TaskTrait
+ * UsersTrait
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -17,7 +17,7 @@ namespace Ecomlogic\Methods\V4;
 /**
  * PHP version 5.4
  *
- * TaskTrait class
+ * UsersTrait class
  *
  * @category Ecomlogic
  * @package  Ecomlogic

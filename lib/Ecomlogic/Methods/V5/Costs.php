@@ -3,7 +3,7 @@
 /**
  * PHP version 5.4
  *
- * ReferencesTrait
+ * CostsTrait
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -11,15 +11,12 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
  */
-
-namespace Ecomlogic\Methods\V4;
-
-use Ecomlogic\Methods\V3\References as Previous;
+namespace Ecomlogic\Methods\V5;
 
 /**
  * PHP version 5.4
  *
- * ReferencesTrait class
+ * CostsTrait class
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -27,30 +24,14 @@ use Ecomlogic\Methods\V3\References as Previous;
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
  */
-trait References
+trait Costs
 {
-    use Previous;
-
     /**
-     * Get prices types
+     * Returns filtered costs list
      *
-     * @throws \Ecomlogic\Exception\CurlException
-     * @throws \Ecomlogic\Exception\InvalidJsonException
-     *
-     * @return \Ecomlogic\Response\ApiResponse
-     */
-    public function pricesTypes()
-    {
-        return $this->client->makeRequest(
-            '/reference/price-types',
-            "GET"
-        );
-    }
-
-    /**
-     * Edit price type
-     *
-     * @param array $data
+     * @param array $filter (default: array())
+     * @param int   $page   (default: null)
+     * @param int   $limit  (default: null)
      *
      * @throws \InvalidArgumentException
      * @throws \Ecomlogic\Exception\CurlException
@@ -58,24 +39,51 @@ trait References
      *
      * @return \Ecomlogic\Response\ApiResponse
      */
-    public function pricesTypesEdit(array $data)
+    public function costsList(array $filter = [], $limit = null, $page = null)
     {
-        if (!array_key_exists('code', $data)) {
-            throw new \InvalidArgumentException(
-                'Data must contain "code" parameter.'
-            );
+        $parameters = [];
+
+        if (count($filter)) {
+            $parameters['filter'] = $filter;
+        }
+        if (null !== $page) {
+            $parameters['page'] = (int) $page;
+        }
+        if (null !== $limit) {
+            $parameters['limit'] = (int) $limit;
         }
 
-        if (!array_key_exists('name', $data)) {
+        return $this->client->makeRequest(
+            '/costs',
+            "GET",
+            $parameters
+        );
+    }
+
+    /**
+     * Create a cost
+     *
+     * @param array  $cost cost data
+     * @param string $site (default: null)
+     *
+     * @throws \InvalidArgumentException
+     * @throws \Ecomlogic\Exception\CurlException
+     * @throws \Ecomlogic\Exception\InvalidJsonException
+     *
+     * @return \Ecomlogic\Response\ApiResponse
+     */
+    public function costsCreate(array $cost, $site = null)
+    {
+        if (!count($cost)) {
             throw new \InvalidArgumentException(
-                'Data must contain "name" parameter.'
+                'Parameter `cost` must contains a data'
             );
         }
 
         return $this->client->makeRequest(
-            sprintf('/reference/price-types/%s/edit', $data['code']),
+            '/costs/create',
             "POST",
-            ['priceType' => json_encode($data)]
+            $this->fillSite($site, ['cost' => json_encode($cost)])
         );
     }
 }

@@ -3,7 +3,7 @@
 /**
  * PHP version 5.4
  *
- * TaskTrait
+ * StatisticsTrait
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -19,7 +19,7 @@ use Ecomlogic\Methods\V3\Statistic as Previous;
 /**
  * PHP version 5.4
  *
- * TaskTrait class
+ * StatisticsTrait class
  *
  * @category Ecomlogic
  * @package  Ecomlogic

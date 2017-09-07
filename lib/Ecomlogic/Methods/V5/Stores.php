@@ -3,7 +3,7 @@
 /**
  * PHP version 5.4
  *
- * TaskTrait
+ * StoresTrait
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -19,7 +19,7 @@ use Ecomlogic\Methods\V4\Stores as Previous;
 /**
  * PHP version 5.4
  *
- * TaskTrait class
+ * StoresTrait class
  *
  * @category Ecomlogic
  * @package  Ecomlogic

@@ -3,7 +3,7 @@
 /**
  * PHP version 5.4
  *
- * Statistic class
+ * StatisticsTrait class
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -17,7 +17,7 @@ namespace Ecomlogic\Methods\V3;
 /**
  * PHP version 5.4
  *
- * Statistic class
+ * StatisticsTrait class
  *
  * @category Ecomlogic
  * @package  Ecomlogic

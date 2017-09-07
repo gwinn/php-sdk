@@ -3,7 +3,7 @@
 /**
  * PHP version 5.4
  *
- * Telephony
+ * TelephonyTrait
  *
  * @category Ecomlogic
  * @package  Ecomlogic
@@ -19,7 +19,7 @@ use Ecomlogic\Methods\V3\Telephony as Previous;
 /**
  * PHP version 5.4
  *
- * Telephony class
+ * TelephonyTrait class
  *
  * @category Ecomlogic
  * @package  Ecomlogic
