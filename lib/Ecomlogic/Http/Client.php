@@ -16,6 +16,7 @@ namespace Ecomlogic\Http;
 
 use Ecomlogic\Exception\CurlException;
 use Ecomlogic\Exception\InvalidJsonException;
+use Ecomlogic\Exception\LimitException;
 use Ecomlogic\Response\ApiResponse;
 
 /**
@@ -114,6 +115,11 @@ class Client
 
         $responseBody = curl_exec($curlHandler);
         $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
+
+        if ($statusCode == 503) {
+            throw new LimitException("Service temporary unavalable");
+        }
+
         $errno = curl_errno($curlHandler);
         $error = curl_error($curlHandler);
 
