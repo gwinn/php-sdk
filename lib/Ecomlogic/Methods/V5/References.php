@@ -32,7 +32,7 @@ trait References
     use Previous;
 
     /**
-     * Get costs goups
+     * Get costs groups
      *
      * @throws \Ecomlogic\Exception\CurlException
      * @throws \Ecomlogic\Exception\InvalidJsonException
@@ -48,7 +48,7 @@ trait References
     }
 
     /**
-     * Edit costs goups
+     * Edit costs groups
      *
      * @param array $data
      *
@@ -82,6 +82,96 @@ trait References
             sprintf('/reference/cost-groups/%s/edit', $data['code']),
             "POST",
             ['costGroup' => json_encode($data)]
+        );
+    }
+
+    /**
+     * Get costs items
+     *
+     * @throws \Ecomlogic\Exception\CurlException
+     * @throws \Ecomlogic\Exception\InvalidJsonException
+     *
+     * @return \Ecomlogic\Response\ApiResponse
+     */
+    public function costItems()
+    {
+        return $this->client->makeRequest(
+            '/reference/cost-items',
+            "GET"
+        );
+    }
+
+    /**
+     * Edit costs items
+     *
+     * @param array $data
+     *
+     * @throws \InvalidArgumentException
+     * @throws \Ecomlogic\Exception\CurlException
+     * @throws \Ecomlogic\Exception\InvalidJsonException
+     *
+     * @return \Ecomlogic\Response\ApiResponse
+     */
+    public function costItemsEdit(array $data)
+    {
+        if (!array_key_exists('code', $data)) {
+            throw new \InvalidArgumentException(
+                'Data must contain "code" parameter.'
+            );
+        }
+
+        if (!array_key_exists('name', $data)) {
+            throw new \InvalidArgumentException(
+                'Data must contain "name" parameter.'
+            );
+        }
+
+        return $this->client->makeRequest(
+            sprintf('/reference/cost-items/%s/edit', $data['code']),
+            "POST",
+            ['costItem' => json_encode($data)]
+        );
+    }
+
+    /**
+     * Get legal entities
+     *
+     * @throws \Ecomlogic\Exception\CurlException
+     * @throws \Ecomlogic\Exception\InvalidJsonException
+     *
+     * @return \Ecomlogic\Response\ApiResponse
+     */
+    public function legalEntities()
+    {
+        return $this->client->makeRequest(
+            '/reference/legal-entities',
+            "GET"
+        );
+    }
+
+    /**
+     * Edit legal entity
+     *
+     * @param array $data
+     *
+     * @throws \InvalidArgumentException
+     * @throws \Ecomlogic\Exception\CurlException
+     * @throws \Ecomlogic\Exception\InvalidJsonException
+     *
+     * @return \Ecomlogic\Response\ApiResponse
+     */
+    public function legalEntitiesEdit(array $data)
+    {
+        if (!array_key_exists('code', $data)) {
+            throw new \InvalidArgumentException(
+                'Data must contain "code" parameter.'
+            );
+        }
+
+        return $this->client->makeRequest(
+            sprintf('/reference/legal-entities/%s/edit', $data['code']),
+            "POST",
+            ['legalEntity' => json_encode($data)]
         );
     }
 }

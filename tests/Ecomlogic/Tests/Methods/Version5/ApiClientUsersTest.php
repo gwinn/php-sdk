@@ -59,7 +59,7 @@ class ApiClientUsersTest extends TestCase
     public function testUsersGet()
     {
         $client = static::getApiClient();
-        $response = $client->request->usersGet($_SERVER["CRM_USER_ID"]);
+        $response = $client->request->usersGet($_SERVER["ECOMLOGIC_USER"]);
         static::assertInstanceOf('Ecomlogic\Response\ApiResponse', $response);
         static::assertTrue(in_array($response->getStatusCode(), [200, 201]));
         static::assertTrue($response->isSuccessful());
