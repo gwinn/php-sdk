@@ -43,6 +43,8 @@ class ApiVersion5 extends AbstractLoader
         parent::__construct($url, $apiKey, $version, $site);
     }
 
+    use V5\Api;
+    use V5\Costs;
     use V5\Customers;
     use V5\CustomFields;
     use V5\Delivery;

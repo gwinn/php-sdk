@@ -36,9 +36,9 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     public static function getApiClient($url = null, $apiKey = null, $version = null, $site = null)
     {
-        $configUrl     = getenv('CRM_API_URL') ?: $_SERVER['CRM_API_URL'];
-        $configKey     = getenv('CRM_API_KEY') ?: $_SERVER['CRM_API_KEY'];
-        $configVersion = getenv('CRM_API_VERSION') ?: $_SERVER['CRM_API_VERSION'];
+        $configUrl     = getenv('ECOMLOGIC_URL') ?: $_SERVER['ECOMLOGIC_URL'];
+        $configKey     = getenv('ECOMLOGIC_KEY') ?: $_SERVER['ECOMLOGIC_KEY'];
+        $configVersion = getenv('ECOMLOGIC_VERSION') ?: $_SERVER['ECOMLOGIC_VERSION'];
 
         return new ApiClient(
             $url ?: $configUrl,
@@ -58,18 +58,18 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     public static function getClient($url = null, $defaultParameters = [])
     {
-        $version = getenv('CRM_API_VERSION');
+        $version = getenv('ECOMLOGIC_VERSION');
 
         if (false == $version) {
-            $version = $_SERVER['CRM_API_VERSION'];
+            $version = $_SERVER['ECOMLOGIC_VERSION'];
         }
 
         return new Client(
-            $url ?: $_SERVER['CRM_API_URL'] . '/api/' .  $version,
+            $url ?: $_SERVER['ECOMLOGIC_URL'] . '/api/' .  $version,
             [
                 'apiKey' => array_key_exists('apiKey', $defaultParameters)
                     ? $defaultParameters['apiKey']
-                    : $_SERVER['CRM_API_KEY']
+                    : $_SERVER['ECOMLOGIC_KEY']
             ]
         );
     }
