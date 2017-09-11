@@ -38,7 +38,7 @@ trait Module
      *
      * @return \Ecomlogic\Response\ApiResponse
      */
-    public function integrationModulesGet(string $code)
+    public function integrationModulesGet($code)
     {
         if (empty($code)) {
             throw new \InvalidArgumentException(

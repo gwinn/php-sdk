@@ -43,6 +43,7 @@ class ApiVersion4 extends AbstractLoader
         parent::__construct($url, $apiKey, $version, $site);
     }
 
+    use V4\Api;
     use V4\Customers;
     use V4\Delivery;
     use V4\Marketplace;

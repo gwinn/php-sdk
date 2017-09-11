@@ -11,9 +11,9 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     http://www.ecomlogic.com/docs/Developers/ApiVersion5
  */
-namespace Ecomlogic\Methods\V5;
+namespace Ecomlogic\Methods\V4;
 
-use Ecomlogic\Methods\V4\Api as Previous;
+use Ecomlogic\Methods\V3\Api as Previous;
 
 /**
  * PHP version 5.4

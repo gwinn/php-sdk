@@ -43,6 +43,7 @@ class ApiVersion3 extends AbstractLoader
         parent::__construct($url, $apiKey, $version, $site);
     }
 
+    use V3\Api;
     use V3\Customers;
     use V3\Orders;
     use V3\Packs;
