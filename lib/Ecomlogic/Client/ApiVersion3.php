@@ -36,7 +36,6 @@ class ApiVersion3 extends AbstractLoader
      * @param string $apiKey  api key
      * @param string $version api version
      * @param string $site    site code
-     *
      */
     public function __construct($url, $apiKey, $version, $site)
     {

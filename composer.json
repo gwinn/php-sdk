@@ -1,5 +1,5 @@
 {
-    "name": "ecomlogic-com/php-sdk",
+    "name": "ecomlogic/php-sdk",
     "description": "PHP client for eComlogic API",
     "type": "library",
     "keywords": ["API", "eComlogic", "REST"],

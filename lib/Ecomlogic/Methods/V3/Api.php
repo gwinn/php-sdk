@@ -37,7 +37,7 @@ trait Api
     public function apiVersions()
     {
         return $this->client->makeRequest(
-            '/api/api-versions',
+            '/api-versions',
             "GET"
         );
     }
@@ -53,7 +53,7 @@ trait Api
     public function apiCredentials()
     {
         return $this->client->makeRequest(
-            '/api/credentials',
+            '/credentials',
             "GET"
         );
     }

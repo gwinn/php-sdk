@@ -13,6 +13,7 @@
         <server name="ECOMLOGIC_URL" value="https://demo.ecomlogic.com" />
         <server name="ECOMLOGIC_KEY" value="Bz9SLca32BYgv2R6yQMlDCUSgOPcbXix" />
         <server name="ECOMLOGIC_USER" value="1" />
+        <server name="ECOMLOGIC_VERSION" value="v5" />
     </php>
 
     <testsuites>

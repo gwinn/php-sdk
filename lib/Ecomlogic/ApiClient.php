@@ -41,22 +41,24 @@ class ApiClient
      * @param string $apiKey  api key
      * @param string $version api version
      * @param string $site    site code
-     *
      */
-    public function __construct($url, $apiKey, $version = 'v5', $site = null)
+    public function __construct($url, $apiKey, $version = null, $site = null)
     {
         $this->version = $version;
 
         switch ($version) {
-            case 'v5':
-                $this->request = new ApiVersion5($url, $apiKey, $version, $site);
-                break;
-            case 'v4':
-                $this->request = new ApiVersion4($url, $apiKey, $version, $site);
-                break;
-            case 'v3':
-                $this->request = new ApiVersion3($url, $apiKey, $version, $site);
-                break;
+        case 'v5':
+            $this->request = new ApiVersion5($url, $apiKey, $version, $site);
+            break;
+        case 'v4':
+            $this->request = new ApiVersion4($url, $apiKey, $version, $site);
+            break;
+        case 'v3':
+            $this->request = new ApiVersion3($url, $apiKey, $version, $site);
+            break;
+        case null:
+            $this->request = new ApiVersion3($url, $apiKey, null, $site);
+            break;
         }
     }
 

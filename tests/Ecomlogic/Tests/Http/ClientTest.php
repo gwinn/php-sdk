@@ -15,7 +15,6 @@
 namespace Ecomlogic\Tests\Http;
 
 use Ecomlogic\Test\TestCase;
-use Ecomlogic\ApiClient;
 use Ecomlogic\Http\Client;
 
 /**
@@ -30,7 +29,11 @@ use Ecomlogic\Http\Client;
 class ClientTest extends TestCase
 {
     /**
+     * Test HTTP Client constuct
+     *
      * @group client
+     *
+     * @return void
      */
     public function testConstruct()
     {
@@ -40,12 +43,21 @@ class ClientTest extends TestCase
     }
 
     /**
+     * Check exception while construct new HTTP Client
+     *
      * @group client
+     *
      * @expectedException \InvalidArgumentException
+     *
+     * @return \Ecomlogic\Http\Client
      */
     public function testHttpRequiring()
     {
-        $client = new Client('http://demo.retailcrm.ru/api/' . $_SERVER['CRM_API_VERSION'], ['apiKey' => '123']);
+        $client = new Client(
+            'http://demo.retailcrm.ru/api/' . $_SERVER['CRM_API_VERSION'],
+            ['apiKey' => '123']
+        );
+
         return $client;
     }
 

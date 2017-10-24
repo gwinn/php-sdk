@@ -20,30 +20,38 @@ use Ecomlogic\Http\Client;
 /**
  * Class TestCase
  *
- * @package Ecomlogic\Test
+ * @category Ecomlogic
+ * @package  Ecomlogic\Test
+ * @author   Ecomlogic <dev@ecomlogic.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     http://ecomlogic.com/docs/Developers/ApiVersion5
  */
 class TestCase extends \PHPUnit_Framework_TestCase
 {
     /**
      * Return ApiClient object
      *
-     * @param  string    $url (default: null)
-     * @param  string    $apiKey (default: null)
-     * @param  string    $version (default: null)
-     * @param  string    $site (default: null)
+     * @param string $url     (default: null)
+     * @param string $apiKey  (default: null)
+     * @param string $version (default: null)
+     * @param string $site    (default: null)
      *
      * @return ApiClient
      */
-    public static function getApiClient($url = null, $apiKey = null, $version = null, $site = null)
-    {
-        $configUrl     = getenv('ECOMLOGIC_URL') ?: $_SERVER['ECOMLOGIC_URL'];
-        $configKey     = getenv('ECOMLOGIC_KEY') ?: $_SERVER['ECOMLOGIC_KEY'];
-        $configVersion = getenv('ECOMLOGIC_VERSION') ?: $_SERVER['ECOMLOGIC_VERSION'];
+    public static function getApiClient(
+        $url = null,
+        $apiKey = null,
+        $version = null,
+        $site = null
+    ) {
+        $confUrl     = getenv('ECOMLOGIC_URL') ?: $_SERVER['ECOMLOGIC_URL'];
+        $confKey     = getenv('ECOMLOGIC_KEY') ?: $_SERVER['ECOMLOGIC_KEY'];
+        $confVersion = getenv('ECOMLOGIC_VERSION') ?: $_SERVER['ECOMLOGIC_VERSION'];
 
         return new ApiClient(
-            $url ?: $configUrl,
-            $apiKey ?: $configKey,
-            $version ?: $configVersion,
+            $url ?: $confUrl,
+            $apiKey ?: $confKey,
+            $version ?: $confVersion,
             $site ?: null
         );
     }
@@ -51,8 +59,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
     /**
      * Return Client object
      *
-     * @param  string $url (default: null)
-     * @param  array  $defaultParameters (default: array())
+     * @param string $url               (default: null)
+     * @param array  $defaultParameters (default: array())
      *
      * @return Client
      */

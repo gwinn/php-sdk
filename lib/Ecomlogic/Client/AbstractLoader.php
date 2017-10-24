@@ -40,19 +40,14 @@ abstract class AbstractLoader
      * @param string $version api version
      * @param string $site    site code
      */
-    public function __construct($url, $apiKey, $version, $site = null)
+    public function __construct($url, $apiKey, $version = null, $site = null)
     {
         if ('/' !== $url[strlen($url) - 1]) {
             $url .= '/';
         }
 
-        if (empty($version) || !in_array($version, ['v3', 'v4', 'v5'])) {
-            throw new \InvalidArgumentException(
-                'Version parameter must be not empty and must be equal one of v3|v4|v5'
-            );
-        }
-
-        $url = $url . 'api/' . $version;
+        $versionString = is_null($version) ? '' : '/' . $version;
+        $url .=  'api' . $versionString;
 
         $this->client = new Client($url, ['apiKey' => $apiKey]);
         $this->siteCode = $site;
@@ -127,6 +122,4 @@ abstract class AbstractLoader
     {
         return $this->siteCode;
     }
-
-
 }
